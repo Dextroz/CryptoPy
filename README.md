@@ -47,6 +47,8 @@ Or
 
 ## Disclaimer
 
+* I am by no means a crypto expert, if you spot an issue with the module, go ahead and fork the repo, submit an issue or PR. 🙂
+
 * I am **NOT** responsible for any loss or corruption of file data/encryption keys. By using this module, you accept the risk that issues or errors **could** occur resulting in loss of data/keys.
 
 ## Changelog
