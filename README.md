@@ -1,6 +1,8 @@
 # CryptoPy 🔐
 A Python module to easily encrypt and decrypt files.
 
+CryptoPy is written in Python 3.7 🐍
+
 ## Example Usage
 
 CryptoPy currently uses the Advanced Encryption Standard (AES) to encrypt files.
