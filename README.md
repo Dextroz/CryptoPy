@@ -40,7 +40,9 @@ pycryptodome = "*"
 
 Install dependencies using:
 * `pipenv install`
+
 Or
+
 * `pip3 install -r requirements.txt`
 
 ## Disclaimer
