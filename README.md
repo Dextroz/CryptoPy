@@ -28,6 +28,21 @@ decrypted_file_path = CryptoPy(key).decrypt_file("./Pipfile.lock.enc")
 print(decrypted_file_path)
 ```
 
+## Dependencies
+
+```
+[dev-packages]
+black = "*"
+
+[packages]
+pycryptodome = "*"
+```
+
+Install dependencies using:
+* `pipenv install`
+Or
+* `pip3 install -r requirements.txt`
+
 ## Disclaimer
 
 * I am **NOT** responsible for any loss or corruption of file data/encryption keys. By using this module, you accept the risk that issues or errors **could** occur resulting in loss of data/keys.
