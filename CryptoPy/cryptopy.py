@@ -24,7 +24,7 @@ try:
     from Crypto.Cipher import AES
     from Crypto.Random import get_random_bytes
     from os.path import abspath
-    from os import remove, rename
+    from os import rename
 except ImportError as err:
     print(f"Failed to import required modules: {err}")
 
@@ -39,7 +39,7 @@ class CryptoPy:
         Class initialisation.
             :param KEY: A byte string. Example: b'\xcd\xa0\x0f\x97%.\xbb\xf7\xe0\xd3\xa9\x86i\xec\xa0:'.
         """
-        VERSION = "0.0.1"
+        VERSION = "0.0.2"
 
         if KEY is None:
             self.KEY = get_random_bytes(16)
@@ -66,36 +66,28 @@ class CryptoPy:
         """
         # Check to ensure the file isn't already encrypted.
         if file_path.endswith(".enc"):
-            raise TypeError(
-                "Error: You cannot encrypt a file which is already encrypted."
-            )
+            raise TypeError("You cannot encrypt a file which is already encrypted.")
         else:
             try:
-                with open(abspath(file_path), "rb") as data:
-                    try:
-                        with open(f"{file_path}.enc", "wb") as encrypt_file:
-                            cipher, ciphertext, tag = self.encrypt_plaintext(
-                                data.read(), self.KEY
-                            )
-                            [
-                                encrypt_file.write(_)
-                                for _ in (cipher.nonce, tag, ciphertext)
-                            ]
-                    except IOError as err:
-                        raise IOError(
-                            f"Error: Failed to create new encrypted file: {err}"
-                        )
+                with open(abspath(file_path), "r+b") as file_to_encrypt:
+                    cipher, ciphertext, tag = self.encrypt_plaintext(
+                        file_to_encrypt.read(), self.KEY
+                    )
+                    # Overwrite the current file with encrypted data.
+                    file_to_encrypt.seek(0)
+                    [file_to_encrypt.write(_) for _ in (cipher.nonce, tag, ciphertext)]
+                    file_to_encrypt.truncate()
             except IOError as err:
-                raise IOError(f"Error: Failed to open {file_path}: {err}")
+                raise IOError(f"Failed to open {file_path}: {err}")
+            # Rename file to include .enc
+            rename(abspath(file_path), f"{abspath(file_path)}.enc")
             if self.RANDOM_KEY:
                 # Write key to file.
                 try:
                     with open(f"{file_path}.key", "wb") as key_file:
                         key_file.write(self.KEY)
                 except IOError as err:
-                    raise IOError(f"Error: Failed to create key file: {err}")
-                # Remove unencrypted version of the file.
-                remove(abspath(file_path))
+                    raise IOError(f"Failed to create key file: {err}")
                 # Return the PATH to the key file.
                 return abspath(f"{file_path}.key")
 
@@ -131,14 +123,12 @@ class CryptoPy:
                     encrypted_file.write(plaintext)
                     encrypted_file.truncate()
             except IOError as err:
-                raise IOError(f"Error: Failed to open encrypted file: {err}")
+                raise IOError(f"Failed to open encrypted file: {err}")
             # Rename file as no longer encrypted.
-            new_file_name = file_path.replace(".enc", "")
+            new_file_name = abspath(file_path.replace(".enc", ""))
             rename(abspath(file_path), new_file_name)
             # Return the PATH to the decrypted file.
             return abspath(new_file_name)
         else:
-            raise TypeError(
-                "Error: The file must encrypted before it can be decrypted."
-            )
+            raise TypeError("The file must encrypted before it can be decrypted.")
 
