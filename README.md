@@ -36,6 +36,7 @@ To use CryptoPy in your own project import using `from CryptoPy import CryptoPy`
 ```
 [dev-packages]
 black = "*"
+twine = "*"
 
 [packages]
 pycryptodome = "*"
