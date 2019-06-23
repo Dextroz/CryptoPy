@@ -52,6 +52,8 @@ Install dependencies using either:
 
 ## Changelog
 
+* 0.0.2 - Added PyPi support. Altered `encrypt_file` to overwrite the file supplied for encryption instead of creating a new file and deleting the old one (done in version 0.0.1).
+
 * 0.0.1 - Inital relase. Can encrypt or decrypt a user specified file using the Advanced Encryption Standard (AES).
 
 ## Authors -- Contributors
