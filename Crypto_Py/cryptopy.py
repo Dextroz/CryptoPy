@@ -39,7 +39,7 @@ class CryptoPy:
         Class initialisation.
             :param KEY: A byte string. Example: b'\xcd\xa0\x0f\x97%.\xbb\xf7\xe0\xd3\xa9\x86i\xec\xa0:'.
         """
-        VERSION = "0.0.3"
+        VERSION = "0.0.4"
 
         if KEY is None:
             self.KEY = get_random_bytes(16)

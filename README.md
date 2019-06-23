@@ -53,6 +53,8 @@ Install dependencies using either:
 
 ## Changelog
 
+* 0.0.4 - Fixed issue causing Error: "No module named Crypto".
+
 * 0.0.3 - Altered project name. Relevant changes.
 
 * 0.0.2 - Added PyPi support. Altered `encrypt_file` to overwrite the file supplied for encryption instead of creating a new file and deleting the old one (done in version 0.0.1).
