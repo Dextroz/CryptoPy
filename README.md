@@ -63,7 +63,7 @@ Install dependencies using either:
 
 ## Authors -- Contributors
 
-* **Dextroz** - *Author* - [Dextroz](https://github.com/Dextroz)
+* **dbrennand** - *Author* - [dbrennand](https://github.com/dbrennand)
 
 ## License
 
